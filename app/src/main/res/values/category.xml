@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category">
+        <item> 육류 </item>
+        <item> 채소류 </item>
+        <item> 유제품류 </item>
+        <item> 난류 </item>
+        <item> 콩류 </item>
+        <item> 소스류 </item>
+        <item> 음료류 </item>
+    </string-array>
+
+    <string-array name="meat">
+        <item> 소고기 </item>
+        <item> 돼지고기 </item>
+        <item> 닭고기 </item>
+        <item> 가공육 </item>
+    </string-array>
+
+    <string-array name="vegetable">
+        <item> 나물 </item>
+        <item> 구황작물 </item>
+        <item> 쌈 </item>
+        <item> 샐러드 </item>
+    </string-array>
+    
+    <string-array name="dairyProducts">
+        <item> 우유 </item>
+        <item> 치즈 </item>
+        <item> 요거트 </item>
+        <item> 버터 </item>
+    </string-array>
+    
+    <string-array name="egg">
+        <item> 계란 </item>
+        <item> 메추리알 </item>
+    </string-array>
+
+    <string-array name="bean">
+        <item> 두부 </item>
+        <item> 순두부 </item>
+        <item> 연두부 </item>
+    </string-array>
+</resources>

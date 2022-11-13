@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+
+
+    <!---
+        폰트 설정: android:fontFamily="@font/"
+        따옴표: &quot;
+    -->
+    <TextView
+        android:id="@+id/mainTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textColor="@color/mainTitle"
+        android:textAlignment="center"
+        android:layout_marginTop="30dp"
+        android:text="먹않상"
+        />
+
+    <TextView
+        android:id="@+id/welcomeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="&quot;default message&quot;"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:layout_marginBottom="40dp"
+        />
+
+    <Button
+        android:id="@+id/viewButton"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_launcher_foreground"
+        android:text="우리집\n냉장고 보기"
+        android:layout_marginBottom="15dp"/>
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_launcher_foreground"
+        android:text="장 본 내역\n추가하기"
+        android:layout_marginBottom="15dp"/>
+
+    <Button
+        android:id="@+id/trashButton"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_launcher_foreground"
+        android:text="버릴 항목\n확인하기"
+        android:layout_marginBottom="15dp"/>
+
+
+</LinearLayout>

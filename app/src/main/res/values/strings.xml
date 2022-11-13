@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">먹않상</string>
+    <string name="title_activity_view">ViewActivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="fragment_category">FragmentCategory</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
