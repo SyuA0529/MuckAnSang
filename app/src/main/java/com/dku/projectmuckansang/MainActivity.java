@@ -3,6 +3,7 @@ package com.dku.projectmuckansang;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -35,6 +36,16 @@ public class MainActivity extends AppCompatActivity {
         initializeButtons();
         Intent intent = new Intent(getApplicationContext(), BootReceiver.class);
         sendBroadcast(intent);
+
+        Log.d("SyuA", "\n" +
+                " _____                 ___  \n" +
+                "/  ___|               / _ \\ \n" +
+                "\\ `--.  _   _  _   _ / /_\\ \\\n" +
+                " `--. \\| | | || | | ||  _  |\n" +
+                "/\\__/ /| |_| || |_| || | | |\n" +
+                "\\____/  \\__, | \\__,_|\\_| |_/\n" +
+                "         __/ |              \n" +
+                "        |___/               \n");
     }
 
     private void initializeButtons() {
