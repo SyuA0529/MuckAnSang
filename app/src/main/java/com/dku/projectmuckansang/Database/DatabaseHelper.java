@@ -1,24 +1,16 @@
 package com.dku.projectmuckansang.Database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String DB_NAME = "";
+    public static final String DB_NAME = "MuckAnSang";
     public static final int DB_VERSION = 1;
-
-    public static final String[] TABLE_NAME_LIST = {
-
-    };
-    public static final String[][] TABLE_ATTR_LIST = {
-            { },
-    };
-
-    private static final String[] CREATE_TABLES = {
-
-    };
-
+    private SQLiteDatabase writableDatabase;
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -26,16 +18,137 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        for (String createTable: CREATE_TABLES) {
-            sqLiteDatabase.execSQL(createTable);
-        }
+        USER_TABLE.createTable(sqLiteDatabase);
+        DEFAULT_PERIOD_TABLE.createTable(sqLiteDatabase);
+        PRODUCT_TABLE.createTable(sqLiteDatabase);
+        PRODUCT_PERIOD_TABLE.createTable(sqLiteDatabase);
+
+        writableDatabase = getWritableDatabase();
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        for (int j = 0; j < TABLE_ATTR_LIST.length; j++) {
-            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_LIST[j]);
-            sqLiteDatabase.execSQL(CREATE_TABLES[j]);
+
+    }
+
+    public String[] getBigCategoryList() {
+        return DEFAULT_PERIOD_TABLE.getBigCategoryList(writableDatabase);
+    }
+
+    public ArrayList<ProductData> getSpecificCategoryProductList(String bigCategory) {
+        // get big category ID list
+        int[] categoryIDList = DEFAULT_PERIOD_TABLE.getBigCategoryIDList(writableDatabase, bigCategory);
+        ArrayList<ProductData> specificCategoryProductList = new ArrayList<>();
+
+        // for each category ID
+        for (int i = 0; i < categoryIDList.length; i++) {
+            //get cur category's products
+            Cursor cursor = writableDatabase.rawQuery("select PRODUCT.productID, PRODUCT.productName, PRODUCT.productCount, PRODUCT_PERIOD.remainingPeriod " +
+                            "from PRODUCT, PRODUCT_PERIOD " +
+                            "where PRODUCT.productID = PRODUCT_PERIOD.productID " +
+                            "and PRODUCT.categoryID = " + categoryIDList[i]
+                    , null);
+
+            int curProductListLen = cursor.getCount();
+            for (int j = 0; j < curProductListLen; j++) {
+                cursor.moveToNext();
+                specificCategoryProductList.add(new ProductData(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getInt(2),
+                        cursor.getInt(3)
+                ));
+            }
         }
+
+        return specificCategoryProductList;
+    }
+
+    public ArrayList<ProductData> getProductListBetweenSpecificPeriod(int start, int end) {
+        Cursor cursor = writableDatabase.rawQuery(
+                "select PRODUCT.productID, PRODUCT.productName, PRODUCT.productCount, PRODUCT_PERIOD.remainingPeriod " +
+                        "from PRODUCT, PRODUCT_PERIOD " +
+                        "where PRODUCT.productID = PRODUCT_PERIOD.productID " +
+                        "and PRODUCT_PERIOD.remainingPeriod >= " + start + ", " +
+                        "and PRODUCT_PERIOD.remainingPeriod < " + end,
+                null);
+
+        int productCount = cursor.getCount();
+        ArrayList<ProductData> productList = new ArrayList<>();
+        for (int i = 0; i < productCount; i++) {
+            cursor.moveToNext();
+            productList.add(new ProductData(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getInt(2),
+                    cursor.getInt(3)
+            ));
+        }
+        return productList;
+    }
+
+    public ArrayList<ProductData> getProductListOverSpecificPeriod(int start) {
+        Cursor cursor = writableDatabase.rawQuery(
+                "select PRODUCT.productID, PRODUCT.productName, PRODUCT.productCount, PRODUCT_PERIOD.remainingPeriod " +
+                        "from PRODUCT, PRODUCT_PERIOD " +
+                        "where PRODUCT.productID = PRODUCT_PERIOD.productID " +
+                        "and PRODUCT_PERIOD.remainingPeriod >= " + start,
+                null);
+
+        int productCount = cursor.getCount();
+        ArrayList<ProductData> productList = new ArrayList<>();
+        for (int i = 0; i < productCount; i++) {
+            cursor.moveToNext();
+            productList.add(new ProductData(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getInt(2),
+                    cursor.getInt(3)
+            ));
+        }
+        return productList;
+    }
+
+    public void deleteProductById(int productID) {
+        writableDatabase.execSQL(
+                "delete from PRODUCT where productID = " + productID
+        );
+    }
+
+    public int getLastProductID() {
+        Cursor cursor = writableDatabase.rawQuery(
+                "select productID from PRODUCT",
+                null
+        );
+        cursor.moveToLast();
+        return cursor.getInt(0);
+    }
+
+    public void insertProduct(String productName, int productCount, int categoryID, int remainingPeriod) {
+        writableDatabase.execSQL(
+                "insert into PRODUCT (productName, productCount, categoryID) " +
+                        "values " +
+                        "( " + productName + ", " + productCount + ", " + categoryID + " )"
+        );
+
+        writableDatabase.execSQL(
+                "insert into PRODUCT_PERIOD (productID, remainingPeriod) " +
+                        "values " +
+                        "( " + getLastProductID() + ", " + remainingPeriod + " )",
+                null
+        );
+    }
+
+    public int getCategoryID(String bigCategory, String detailCategory) {
+        Cursor cursor = writableDatabase.rawQuery(
+                "select categoryID from DEFAULT_PERIOD_TABLE " +
+                        "where " + "bigCategory = " + bigCategory +
+                        " and detailCategory = " + detailCategory,
+                null
+        );
+
+        if(cursor.getCount() > 1) return -1;
+        cursor.moveToNext();
+        return cursor.getInt(0);
     }
 }

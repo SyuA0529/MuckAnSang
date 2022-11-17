@@ -1,0 +1,27 @@
+package com.dku.projectmuckansang.Database;
+
+import androidx.annotation.NonNull;
+
+public class ProductData {
+    private int mProductID;
+    private String mProductName;
+    private int mProductCount;
+    private int mRemainingPeriod;
+
+    public ProductData(int productID, String productName, int productCount, int remainingPeriod) {
+        mProductID = productID;
+        mProductName = productName;
+        mProductCount = productCount;
+        mRemainingPeriod = remainingPeriod;
+    }
+
+    public int getProductID() {
+        return mProductID;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return mProductName + "   개수: " + mProductCount + "개   남은 시간: " + mRemainingPeriod;
+    }
+}

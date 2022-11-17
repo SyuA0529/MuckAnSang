@@ -1,58 +1,75 @@
 package com.dku.projectmuckansang.View;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
+import com.dku.projectmuckansang.Database.DatabaseHelper;
+import com.dku.projectmuckansang.Database.ProductData;
 import com.dku.projectmuckansang.R;
 
 import java.util.ArrayList;
 
 public class LimitDateFragment extends Fragment {
-    private ListView dangerList;
-    private ListView becareList;
-    private ListView safeList;
+    private ListView[] listViews = new ListView[3];
+    private final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+    private boolean wantDelete = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_limit_date, container, false);
-
         initializeListView(rootView);
-
-        ArrayList<String> danger = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            danger.add("danger" + i);
-        }
-        setListViews(dangerList, danger);
-
-        ArrayList<String> becare = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            becare.add("becare " + i);
-        }
-        setListViews(becareList, becare);
-
+        alert.setMessage("정말로 삭제하시겠습니까 ?").setCancelable(false)
+                .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        wantDelete = true;
+                    }
+                }).setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) { }
+                });
         return rootView;
     }
 
     private void initializeListView(ViewGroup viewGroup) {
-        dangerList = viewGroup.findViewById(R.id.dangerList);
-        becareList = viewGroup.findViewById(R.id.becareList);
-        safeList = viewGroup.findViewById(R.id.safeList);
+        listViews[0] = viewGroup.findViewById(R.id.dangerList);
+        listViews[1] = viewGroup.findViewById(R.id.becareList);
+        listViews[2] = viewGroup.findViewById(R.id.safeList);
     }
 
-    private void setListViews(ListView listView, ArrayList<String> arrayList) {
-        ArrayList<String> mArrayList = arrayList;
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, mArrayList);
+    private void setListViews(ListView listView, ArrayList<ProductData> arrayList) {
+        ArrayList<ProductData> mArrayList = arrayList;
+        ArrayAdapter<ProductData> listAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, mArrayList);
         listView.setAdapter(listAdapter);
         setListViewHeightBasedOnChildren(listView);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                // check delete it
+                alert.create().show();
+                // if yes, delete it and update list view
+                if(wantDelete) {
+                    wantDelete = false;
+                    //delete
+                    ProductData product = (ProductData) adapterView.getItemAtPosition(i);
+                    deleteProductFromDatabase(product);
+                    updateListView();
+                }
+            }
+        });
     }
 
     private void setListViewHeightBasedOnChildren(ListView listView) {
@@ -73,5 +90,17 @@ public class LimitDateFragment extends Fragment {
             listView.setLayoutParams(params);
             listView.requestLayout();
         }
+    }
+
+    private void updateListView() {
+        DatabaseHelper helper = new DatabaseHelper(getActivity());
+        setListViews(listViews[0], helper.getProductListBetweenSpecificPeriod(0, 3));
+        setListViews(listViews[1], helper.getProductListBetweenSpecificPeriod(3, 10));
+        setListViews(listViews[2], helper.getProductListOverSpecificPeriod(10));
+    }
+
+    private void deleteProductFromDatabase(ProductData product) {
+        DatabaseHelper helper = new DatabaseHelper(getActivity());
+        helper.deleteProductById(product.getProductID());
     }
 }

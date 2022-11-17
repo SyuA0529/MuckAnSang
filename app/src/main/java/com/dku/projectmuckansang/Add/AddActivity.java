@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.dku.projectmuckansang.Database.DatabaseHelper;
 import com.dku.projectmuckansang.R;
 
 public class AddActivity extends AppCompatActivity {
@@ -38,10 +39,14 @@ public class AddActivity extends AppCompatActivity {
     Button onlyAddButton;
     Button addNextButton;
 
+    DatabaseHelper databaseHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+
+        databaseHelper = new DatabaseHelper(getApplicationContext());
 
         itemNameText = findViewById(R.id.nameEdit);
         itemCountText = findViewById(R.id.countEdit);
@@ -60,8 +65,10 @@ public class AddActivity extends AppCompatActivity {
         editPeriod.setText(year + "년 " + month + "월 " + day + "일");
     }
 
-    private boolean addItemToDatabse() {
+    private boolean addItemToDatabase() {
         //check input is correct
+        String productName;
+        int productCount;
         try {
             //check period is auto
             if(periodVisible) {
@@ -69,11 +76,10 @@ public class AddActivity extends AppCompatActivity {
                     return false; //check period is setted
                 }
             }
-
             //check input value is correct
-            String itemName = String.valueOf(itemNameText.getText());
-            int itemCount = Integer.parseInt(String.valueOf(itemCountText.getText()));
-            if(itemName.equals("") || (itemCount <= 0)) {
+            productName = String.valueOf(itemNameText.getText());
+            productCount = Integer.parseInt(String.valueOf(itemCountText.getText()));
+            if(productName.equals("") || (productCount <= 0)) {
                 return false;
             }
         } catch (Exception e) {
@@ -81,6 +87,18 @@ public class AddActivity extends AppCompatActivity {
         }
 
         //add item to database
+
+        int remainPeriod = 0;
+        if(periodVisible) {
+
+        }
+        else {
+
+        }
+
+        DatabaseHelper helper = new DatabaseHelper(getApplicationContext());
+        //helper.insertProduct(productName, productCount,
+                //helper.getCategoryID(bigCategory, ));
         return true;
     }
 
@@ -116,7 +134,7 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("AddActivity", "startAddItem");
-                if(addItemToDatabse()) {
+                if(addItemToDatabase()) {
                     Toast.makeText(AddActivity.this, "상품이 추가되었습니다", Toast.LENGTH_SHORT).show();
                     finish();
                 }
@@ -129,7 +147,7 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("AddActivity", "startAddItem");
-                if(addItemToDatabse()) {
+                if(addItemToDatabase()) {
                     Toast.makeText(AddActivity.this, "상품이 추가되었습니다", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent()
                             .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
@@ -182,6 +200,17 @@ public class AddActivity extends AppCompatActivity {
             detailCategorySpinner.setAdapter(new ArrayAdapter<String>(
                     this, android.R.layout.simple_spinner_dropdown_item, detailCategorys
             ));
+            detailCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
         }
         else {
             detailCategory = "";

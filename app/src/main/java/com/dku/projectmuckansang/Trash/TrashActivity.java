@@ -3,6 +3,7 @@ package com.dku.projectmuckansang.Trash;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -15,25 +16,31 @@ import java.util.ArrayList;
 
 public class TrashActivity extends AppCompatActivity {
     ListView trashListView;
-
+    ArrayList<String> trashList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trash);
 
         trashListView = findViewById(R.id.trashListView);
-        ArrayList<String> trashList = new ArrayList<>();
+        trashList = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
             trashList.add("trash " + i);
         }
-        setListViews(trashListView, trashList);
+        setListViews(trashList);
     }
 
-    private void setListViews(ListView listView, ArrayList<String> arrayList) {
-        ArrayList<String> mArrayList = arrayList;
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mArrayList);
-        listView.setAdapter(listAdapter);
-        setListViewHeightBasedOnChildren(listView);
+    private void setListViews(ArrayList<String> arrayList) {
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayList);
+        trashListView.setAdapter(listAdapter);
+        setListViewHeightBasedOnChildren(trashListView);
+
+        trashListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                return false;
+            }
+        });
     }
 
     private void setListViewHeightBasedOnChildren(ListView listView) {
