@@ -19,6 +19,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.dku.projectmuckansang.Database.DatabaseHelper;
 import com.dku.projectmuckansang.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class AddActivity extends AppCompatActivity {
     TextView itemNameText;
     TextView itemCountText;
@@ -98,6 +103,7 @@ public class AddActivity extends AppCompatActivity {
         int remainingPeriod = 0;
         if(periodVisible) {
             //calculate remaining period
+            remainingPeriod = calculateRemainingPeriod(String.valueOf(editPeriod.getText()));
         }
         else {
             //get default period
@@ -233,5 +239,23 @@ public class AddActivity extends AppCompatActivity {
         else detailCategorys = null;
 
         if(detailCategorys != null) detailCategory = detailCategorys[0];
+    }
+
+    private int calculateRemainingPeriod(String endDateString) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy년 MM월 dd일");
+        try {
+            Calendar curDate = Calendar.getInstance();
+            curDate.setTime(new Date(System.currentTimeMillis()));
+
+            Calendar endDate = Calendar.getInstance();
+            endDate.setTime(formatter.parse(endDateString));
+
+            return (endDate.get(Calendar.YEAR) - curDate.get(Calendar.YEAR)) * 365 +
+                    (endDate.get(Calendar.MONTH) - curDate.get(Calendar.MONTH)) * 30 +
+                    (endDate.get(Calendar.DATE) - curDate.get(Calendar.DATE));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 }
