@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -15,35 +14,50 @@ import androidx.fragment.app.Fragment;
 
 import com.dku.projectmuckansang.Database.DatabaseHelper;
 import com.dku.projectmuckansang.Database.ProductData;
+import com.dku.projectmuckansang.ListViewAdapter;
 import com.dku.projectmuckansang.R;
 
 import java.util.ArrayList;
 
 public class CategoryFragment extends Fragment {
     private ListView[] listViews = new ListView[7];
-    private final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-    private boolean wantDelete = false;
+    private AlertDialog.Builder alert;
+
+    private ProductData selectedProduct = null;
+    private AdapterView<?> selectedAdapterView = null;
+    private ListView selectedListView = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_category, container, false);
+        alert = new AlertDialog.Builder(getActivity());
         alert.setMessage("정말로 삭제하시겠습니까 ?").setCancelable(false)
                 .setPositiveButton("예", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        wantDelete = true;
+                        ListViewAdapter adapter = (ListViewAdapter) selectedAdapterView.getAdapter();
+                        deleteProductFromDatabase(selectedProduct);
+                        adapter.deleteItem(selectedProduct);
+
+                        selectedAdapterView = null;
+                        selectedProduct = null;
+
+                        for (ListView listView : listViews) {
+                            setListViewHeightBasedOnChildren(listView);
+                        }
                     }
                 }).setNegativeButton("아니오", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) { }
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        selectedProduct = null;
+                        selectedAdapterView = null;
+                    }
                 });
         /*
          * 각 카테고리별 식재료 정보를 DB로부터 가져와 출력
          */
         initializeListView(rootView);
-        updateListView();
         return rootView;
     }
 
@@ -56,12 +70,12 @@ public class CategoryFragment extends Fragment {
         listViews[5] = view.findViewById(R.id.sourceList);
         listViews[6] = view.findViewById(R.id.drinkList);
 
-        updateListView();
+        drawListView();
     }
 
     private void setListViews(ListView listView, ArrayList<ProductData> arrayList) {
         ArrayList<ProductData> mArrayList = arrayList;
-        ArrayAdapter<ProductData> listAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, mArrayList);
+        ListViewAdapter listAdapter = new ListViewAdapter(getActivity(), R.layout.list_view, mArrayList);
         listView.setAdapter(listAdapter);
         setListViewHeightBasedOnChildren(listView);
 
@@ -69,15 +83,9 @@ public class CategoryFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 // check delete it
+                selectedProduct = (ProductData) adapterView.getItemAtPosition(i);
+                selectedAdapterView = adapterView;
                 alert.create().show();
-                // if yes, delete it and update list view
-                if(wantDelete) {
-                    wantDelete = false;
-                    //delete
-                    ProductData product = (ProductData) adapterView.getItemAtPosition(i);
-                    deleteProductFromDatabase(product);
-                    updateListView();
-                }
             }
         });
     }
@@ -102,7 +110,7 @@ public class CategoryFragment extends Fragment {
         }
     }
 
-    private void updateListView() {
+    private void drawListView() {
         DatabaseHelper helper = new DatabaseHelper(getActivity());
         String[] bigCategoryList = helper.getBigCategoryList();
 

@@ -3,6 +3,7 @@ package com.dku.projectmuckansang.Add;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
@@ -21,12 +22,13 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
+        Log.d("DatePicker", String.valueOf(year) + "  " + month + "  " + day);
         return new DatePickerDialog(getActivity(), this, year, month, day);
     }
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
         AddActivity activity = (AddActivity) getActivity();
-        activity.getDatePickerResult(year, month, day);
+        activity.getDatePickerResult(year, month + 1, day);
     }
 }

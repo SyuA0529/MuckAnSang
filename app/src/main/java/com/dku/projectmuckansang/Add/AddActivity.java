@@ -82,12 +82,14 @@ public class AddActivity extends AppCompatActivity {
                 }
             }
             //check input value is correct
-            productName = String.valueOf(itemNameText.getText());
-            productCount = Integer.parseInt(String.valueOf(itemCountText.getText()));
+            productName = String.valueOf(itemNameText.getText()).trim();
+            productCount = Integer.parseInt(String.valueOf(itemCountText.getText()).trim());
             if(productName.equals("") || (productCount <= 0)) {
+                Log.d("AddActivity", "2");
                 return false;
             }
         } catch (Exception e) {
+            Log.d("AddActivity", "3");
             return false;
         }
 
@@ -104,12 +106,13 @@ public class AddActivity extends AppCompatActivity {
         if(periodVisible) {
             //calculate remaining period
             remainingPeriod = calculateRemainingPeriod(String.valueOf(editPeriod.getText()));
+            Log.d("AddActivity", String.valueOf(remainingPeriod));
         }
         else {
             //get default period
             remainingPeriod = helper.getDefaultPeriod(categoryID);
-            if(remainingPeriod == -1) return false;
         }
+        if(remainingPeriod < 0) return false;
         helper.insertProduct(categoryID, productName, productCount, remainingPeriod);
         return true;
     }

@@ -14,6 +14,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
+        writableDatabase = getWritableDatabase();
     }
 
     @Override
@@ -22,8 +23,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         DEFAULT_PERIOD_TABLE.createTable(sqLiteDatabase);
         PRODUCT_TABLE.createTable(sqLiteDatabase);
         PRODUCT_PERIOD_TABLE.createTable(sqLiteDatabase);
-
-        writableDatabase = getWritableDatabase();
     }
 
     @Override
@@ -69,10 +68,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "select PRODUCT.productID, PRODUCT.productName, PRODUCT.productCount, PRODUCT_PERIOD.remainingPeriod " +
                         "from PRODUCT, PRODUCT_PERIOD " +
                         "where PRODUCT.productID = PRODUCT_PERIOD.productID " +
-                        "and PRODUCT_PERIOD.remainingPeriod >= " + start + ", " +
-                        "and PRODUCT_PERIOD.remainingPeriod < " + end,
+                        "and PRODUCT_PERIOD.remainingPeriod >= " + start +
+                        " and PRODUCT_PERIOD.remainingPeriod < " + end,
                 null);
-
         int productCount = cursor.getCount();
         ArrayList<ProductData> productList = new ArrayList<>();
         for (int i = 0; i < productCount; i++) {
@@ -134,7 +132,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<ProductData> getTrashListNyCategory(String bigCategory) {
         ArrayList<ProductData> productList = getSpecificCategoryProductList(bigCategory);
         for (int i = 0; i < productList.size(); i++) {
-            if(productList.get(i).getRemainingPeriod() < 0)
+            if(productList.get(i).getRemainingPeriod() >= 0)
                 productList.remove(productList.get(i));
         }
         return productList;

@@ -22,17 +22,17 @@ public class PRODUCT_TABLE {
     public static void insertItem(SQLiteDatabase database, int categoryID, String productName, int productCount) {
         database.execSQL(
                 "insert into " + TABLE_NAME + " (categoryID, productName, productCount) " +
-                        "values(" + categoryID + ", " + productName + ", " + "productCount" +  ")"
+                        "values(" + categoryID + ", '" + productName + "', " + productCount +  ")"
         );
     }
 
     //Checked
     public static int getLastProductID(SQLiteDatabase database, int categoryID, String productName, int productCount) {
         Cursor cursor = database.rawQuery(
-                "select productID from " + database +
+                "select productID from " + TABLE_NAME +
                         " where categoryID = " + categoryID + " and " +
-                        "productName = " + productName + " and " +
-                        "productCount = " + productCount + ")",
+                        "productName = '" + productName + "' and " +
+                        "productCount = " + productCount,
                 null
         );
 

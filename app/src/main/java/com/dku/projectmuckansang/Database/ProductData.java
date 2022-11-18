@@ -26,6 +26,6 @@ public class ProductData {
     @NonNull
     @Override
     public String toString() {
-        return mProductName + "   개수: " + mProductCount + "개   남은 시간: " + mRemainingPeriod;
+        return mProductName + "   개수: " + mProductCount + "개   남은 날짜: " + mRemainingPeriod;
     }
 }
