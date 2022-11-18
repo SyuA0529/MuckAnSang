@@ -19,6 +19,10 @@ public class ProductData {
         return mProductID;
     }
 
+    public int getRemainingPeriod() {
+        return mRemainingPeriod;
+    }
+
     @NonNull
     @Override
     public String toString() {

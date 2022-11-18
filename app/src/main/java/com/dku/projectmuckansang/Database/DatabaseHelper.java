@@ -130,4 +130,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public int getDefaultPeriod(int categoryID) {
         return DEFAULT_PERIOD_TABLE.getDefaultPeriod(writableDatabase, categoryID);
     }
+
+    public ArrayList<ProductData> getTrashListNyCategory(String bigCategory) {
+        ArrayList<ProductData> productList = getSpecificCategoryProductList(bigCategory);
+        for (int i = 0; i < productList.size(); i++) {
+            if(productList.get(i).getRemainingPeriod() < 0)
+                productList.remove(productList.get(i));
+        }
+        return productList;
+    }
 }

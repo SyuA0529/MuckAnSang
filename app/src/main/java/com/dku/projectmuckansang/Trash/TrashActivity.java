@@ -1,5 +1,6 @@
 package com.dku.projectmuckansang.Trash;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,35 +11,42 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.dku.projectmuckansang.Database.DatabaseHelper;
+import com.dku.projectmuckansang.Database.ProductData;
 import com.dku.projectmuckansang.R;
 
 import java.util.ArrayList;
 
 public class TrashActivity extends AppCompatActivity {
-    ListView trashListView;
-    ArrayList<String> trashList;
+    private ListView[] listViews = new ListView[7];
+    private final AlertDialog.Builder alert = new AlertDialog.Builder(getApplicationContext());
+    private boolean wantDelete = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trash);
-
-        trashListView = findViewById(R.id.trashListView);
-        trashList = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            trashList.add("trash " + i);
-        }
-        setListViews(trashList);
+        updateListView();
     }
 
-    private void setListViews(ArrayList<String> arrayList) {
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayList);
-        trashListView.setAdapter(listAdapter);
-        setListViewHeightBasedOnChildren(trashListView);
+    private void setListViews(ListView listView, ArrayList<ProductData> arrayList) {
+        ArrayList<ProductData> mArrayList = arrayList;
+        ArrayAdapter<ProductData> listAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, mArrayList);
+        listView.setAdapter(listAdapter);
+        setListViewHeightBasedOnChildren(listView);
 
-        trashListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                return false;
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                // check delete it
+                alert.create().show();
+                // if yes, delete it and update list view
+                if(wantDelete) {
+                    wantDelete = false;
+                    //delete
+                    ProductData product = (ProductData) adapterView.getItemAtPosition(i);
+                    deleteProductFromDatabase(product);
+                    updateListView();
+                }
             }
         });
     }
@@ -61,5 +69,22 @@ public class TrashActivity extends AppCompatActivity {
             listView.setLayoutParams(params);
             listView.requestLayout();
         }
+    }
+
+    private void updateListView() {
+        DatabaseHelper helper = new DatabaseHelper(getApplicationContext());
+        String[] bigCategoryList = helper.getBigCategoryList();
+
+        for (int i = 0; i < bigCategoryList.length; i++) {
+            //get specific ProductList of Category
+            ArrayList<ProductData> curCategoryProductList = helper.getTrashListNyCategory(bigCategoryList[i]);
+            //updateListView
+            setListViews(listViews[i], curCategoryProductList);
+        }
+    }
+
+    private void deleteProductFromDatabase(ProductData product) {
+        DatabaseHelper helper = new DatabaseHelper(getApplicationContext());
+        helper.deleteProductById(product.getProductID());
     }
 }
