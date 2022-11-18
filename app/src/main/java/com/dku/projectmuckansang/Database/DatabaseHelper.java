@@ -115,40 +115,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         );
     }
 
-    public int getLastProductID() {
-        Cursor cursor = writableDatabase.rawQuery(
-                "select productID from PRODUCT",
-                null
-        );
-        cursor.moveToLast();
-        return cursor.getInt(0);
+    //Checked
+    public void insertProduct(int categoryID, String productName, int productCount, int remainingPeriod) {
+        PRODUCT_TABLE.insertItem(writableDatabase, categoryID, productName, productCount);
+        int productID = PRODUCT_TABLE.getLastProductID(writableDatabase, categoryID, productName, productCount);
+        PRODUCT_PERIOD_TABLE.insertItem(writableDatabase, productID, remainingPeriod);
     }
 
-    public void insertProduct(String productName, int productCount, int categoryID, int remainingPeriod) {
-        writableDatabase.execSQL(
-                "insert into PRODUCT (productName, productCount, categoryID) " +
-                        "values " +
-                        "( " + productName + ", " + productCount + ", " + categoryID + " )"
-        );
-
-        writableDatabase.execSQL(
-                "insert into PRODUCT_PERIOD (productID, remainingPeriod) " +
-                        "values " +
-                        "( " + getLastProductID() + ", " + remainingPeriod + " )",
-                null
-        );
-    }
-
+    //
     public int getCategoryID(String bigCategory, String detailCategory) {
-        Cursor cursor = writableDatabase.rawQuery(
-                "select categoryID from DEFAULT_PERIOD_TABLE " +
-                        "where " + "bigCategory = " + bigCategory +
-                        " and detailCategory = " + detailCategory,
-                null
-        );
+        return DEFAULT_PERIOD_TABLE.getCategoryID(writableDatabase, bigCategory, detailCategory);
+    }
 
-        if(cursor.getCount() > 1) return -1;
-        cursor.moveToNext();
-        return cursor.getInt(0);
+    public int getDefaultPeriod(int categoryID) {
+        return DEFAULT_PERIOD_TABLE.getDefaultPeriod(writableDatabase, categoryID);
     }
 }

@@ -38,8 +38,8 @@ public class DEFAULT_PERIOD_TABLE {
             "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values (콩류, 순두부, )",
             "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values (콩류, 연두부, )",
 
-            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values (소스류, null, )",
-            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values (음료류, null, )",
+            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values (소스류, "+ "" + ", )",
+            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values (음료류, "+ "" + ", )",
     };
 
     public static void createTable(SQLiteDatabase database) {
@@ -52,6 +52,20 @@ public class DEFAULT_PERIOD_TABLE {
         }
     }
 
+    //Checked
+    public static int getCategoryID(SQLiteDatabase database, String bigCategory, String detailCategory) {
+        Cursor cursor = database.rawQuery(
+                "select categoryID from DEFAULT_PERIOD " +
+                        "where " + "bigCategory = " + bigCategory +
+                        " and detailCategory = " + detailCategory,
+                null
+        );
+        if(cursor.getCount() > 1 || cursor.getCount() == 0) return -1;
+        cursor.moveToLast();
+        return cursor.getInt(1);
+    }
+
+    //Checked
     public static String[] getBigCategoryList(SQLiteDatabase database) {
         Cursor cursor = database.rawQuery("select bigCategory from DEFAULT_PERIOD", null);
         int categoryCount = cursor.getCount();
@@ -63,6 +77,7 @@ public class DEFAULT_PERIOD_TABLE {
         return bigCategoryList;
     }
 
+    //Checked
     public static int[] getBigCategoryIDList(SQLiteDatabase database, String bigCategory) {
         Cursor cursor = database.rawQuery("select categoryID from DEFAULT_PERIOD where bigCategory = " + bigCategory, null);
         int[] detailCategoryList = new int[cursor.getCount()];
@@ -71,5 +86,16 @@ public class DEFAULT_PERIOD_TABLE {
             detailCategoryList[i] = cursor.getInt(0);
         }
         return detailCategoryList;
+    }
+
+    public static int getDefaultPeriod(SQLiteDatabase database, int categoryID) {
+        Cursor cursor = database.rawQuery(
+                "select period from DEFAULT_PERIOD " +
+                        "where categoryID = " + categoryID,
+                null
+        );
+        if(cursor.getCount() < 1) return -1;
+        cursor.moveToNext();
+        return cursor.getInt(1);
     }
 }

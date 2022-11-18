@@ -87,18 +87,24 @@ public class AddActivity extends AppCompatActivity {
         }
 
         //add item to database
+        DatabaseHelper helper = new DatabaseHelper(getApplicationContext());
 
-        int remainPeriod = 0;
+        //already get productName, productCount
+        //get categoryID
+        int categoryID = helper.getCategoryID(bigCategory, detailCategory);
+        if(categoryID < 1) return false;
+
+        //get remainingPeriod
+        int remainingPeriod = 0;
         if(periodVisible) {
-
+            //calculate remaining period
         }
         else {
-
+            //get default period
+            remainingPeriod = helper.getDefaultPeriod(categoryID);
+            if(remainingPeriod == -1) return false;
         }
-
-        DatabaseHelper helper = new DatabaseHelper(getApplicationContext());
-        //helper.insertProduct(productName, productCount,
-                //helper.getCategoryID(bigCategory, ));
+        helper.insertProduct(categoryID, productName, productCount, remainingPeriod);
         return true;
     }
 

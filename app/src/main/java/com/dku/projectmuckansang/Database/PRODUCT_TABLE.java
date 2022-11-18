@@ -18,6 +18,7 @@ public class PRODUCT_TABLE {
         database.execSQL(CREATE_TABLE);
     }
 
+    //Checked
     public static void insertItem(SQLiteDatabase database, int categoryID, String productName, int productCount) {
         database.execSQL(
                 "insert into " + TABLE_NAME + " (categoryID, productName, productCount) " +
@@ -25,11 +26,12 @@ public class PRODUCT_TABLE {
         );
     }
 
+    //Checked
     public static int getLastProductID(SQLiteDatabase database, int categoryID, String productName, int productCount) {
         Cursor cursor = database.rawQuery(
                 "select productID from " + database +
-                        " where categoryID = " + categoryID + ", " +
-                        "productName = " + productName + ", " +
+                        " where categoryID = " + categoryID + " and " +
+                        "productName = " + productName + " and " +
                         "productCount = " + productCount + ")",
                 null
         );
@@ -40,6 +42,7 @@ public class PRODUCT_TABLE {
         return cursor.getInt(0);
     }
 
+    //Checked
     public static Cursor getAllProduct(SQLiteDatabase database) {
         return database.rawQuery("select productID, categoryID, productCount, productName from " + TABLE_NAME, null);
     }
