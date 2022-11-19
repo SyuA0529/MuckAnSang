@@ -16,7 +16,7 @@ import androidx.core.app.NotificationCompat;
 import com.dku.projectmuckansang.MainActivity;
 import com.dku.projectmuckansang.R;
 
-public class AlarmService extends Service {
+public class NotiService extends Service {
     public static String CHANNEL_ID = "MuckAnSang";
     NotificationManager manager;
 

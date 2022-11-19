@@ -35,7 +35,7 @@
         </activity>
 
         <service
-            android:name=".Noti.AlarmService"
+            android:name=".Noti.NotiService"
             android:enabled="true"
             android:exported="false" />
 

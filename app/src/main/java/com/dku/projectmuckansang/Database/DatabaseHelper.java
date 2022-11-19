@@ -137,4 +137,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return productList;
     }
+
+    public void updateProductPeriod() {
+        PRODUCT_PERIOD_TABLE.updateAllItemPeriod(writableDatabase);
+    }
 }

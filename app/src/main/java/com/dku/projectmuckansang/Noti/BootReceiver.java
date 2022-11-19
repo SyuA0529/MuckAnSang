@@ -13,14 +13,26 @@ public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         //set alarm to start service
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 18);
-
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intentService = new Intent(context, AlarmService.class);
-        PendingIntent alarmIntent = PendingIntent.getService(context, 0, intentService, 0);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, alarmIntent);
+
+        //set decreaser alarm
+        Calendar decreaseCalender = Calendar.getInstance();
+        decreaseCalender.setTimeInMillis(System.currentTimeMillis());
+        decreaseCalender.set(Calendar.HOUR_OF_DAY, 0);
+
+        Intent intentDecreaseService = new Intent(context, DecreaseService.class);
+        PendingIntent alarmDecreaseIntent = PendingIntent.getService(context, 0, intentDecreaseService, 0);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, decreaseCalender.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, alarmDecreaseIntent);
+
+        //set notification alarm
+        Calendar notiCalender = Calendar.getInstance();
+        notiCalender.setTimeInMillis(System.currentTimeMillis());
+        notiCalender.set(Calendar.HOUR_OF_DAY, 18);
+
+        Intent intentNotiService = new Intent(context, NotiService.class);
+        PendingIntent alarmNotiIntent = PendingIntent.getService(context, 0, intentNotiService, 0);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, notiCalender.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, alarmNotiIntent);
     }
 }
