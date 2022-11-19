@@ -65,5 +65,17 @@
         android:text="버릴 항목\n확인하기"
         android:layout_marginBottom="15dp"/>
 
+    <Button
+        android:id="@+id/testDecrease"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="감소 테스트용" />
+
+    <Button
+        android:id="@+id/notiTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="알림 테스트용" />
+
 
 </LinearLayout>

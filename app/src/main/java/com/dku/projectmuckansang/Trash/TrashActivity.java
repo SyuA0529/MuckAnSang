@@ -52,14 +52,12 @@ public class TrashActivity extends AppCompatActivity {
                         selectedAdapterView = null;
                     }
                 });
-        setContentView(R.layout.activity_trash);
         updateListView();
     }
 
     private void setListView(ArrayList<ProductData> arrayList) {
         ArrayList<ProductData> mArrayList = arrayList;
-
-        ListViewAdapter listAdapter = new ListViewAdapter(getApplicationContext(), R.layout.list_view, mArrayList);
+        ListViewAdapter listAdapter = new ListViewAdapter(this, R.layout.list_view, mArrayList);
         listView.setAdapter(listAdapter);
         setListViewHeightBasedOnChildren();
 
@@ -107,7 +105,6 @@ public class TrashActivity extends AppCompatActivity {
                 trashProductList.add(curCategoryProductList.get(j));
             }
         }
-
         setListView(trashProductList);
     }
 

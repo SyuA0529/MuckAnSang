@@ -11,7 +11,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dku.projectmuckansang.Add.AddActivity;
+import com.dku.projectmuckansang.Database.DatabaseHelper;
 import com.dku.projectmuckansang.Noti.BootReceiver;
+import com.dku.projectmuckansang.Noti.NotiService;
 import com.dku.projectmuckansang.Trash.TrashActivity;
 import com.dku.projectmuckansang.View.ViewActivity;
 
@@ -46,6 +48,24 @@ public class MainActivity extends AppCompatActivity {
                 "\\____/  \\__, | \\__,_|\\_| |_/\n" +
                 "         __/ |              \n" +
                 "        |___/               \n");
+
+        Button button = findViewById(R.id.testDecrease);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseHelper helper = new DatabaseHelper(getApplicationContext());
+                helper.updateProductPeriod();
+            }
+        });
+
+        Button button2 = findViewById(R.id.notiTest);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent startForeground = new Intent(getApplicationContext(), NotiService.class);
+                startService(startForeground);
+            }
+        });
     }
 
     private void initializeButtons() {

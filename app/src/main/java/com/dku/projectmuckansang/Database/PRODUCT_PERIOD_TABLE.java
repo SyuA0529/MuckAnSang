@@ -25,9 +25,7 @@ public class PRODUCT_PERIOD_TABLE {
 
     public static void updateAllItemPeriod(SQLiteDatabase database) {
         database.execSQL(
-                "update PRODUCT_PERIOD set remainingPeriod = remainingPeriod - 1 " +
-                        "where remainingPeriod >= 0",
-                null
+                "update PRODUCT_PERIOD set remainingPeriod = remainingPeriod - 1 "
         );
     }
 }
