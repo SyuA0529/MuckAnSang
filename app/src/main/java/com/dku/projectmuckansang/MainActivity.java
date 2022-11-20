@@ -20,10 +20,12 @@ import com.dku.projectmuckansang.View.ViewActivity;
 public class MainActivity extends AppCompatActivity {
     TextView welcomeText;
     String nickName = "";
+    boolean doStartService = false;
 
     @Override
     protected void onResume() {
         super.onResume();
+        doStartService = false;
         SharedPreferences preferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
         nickName = preferences.getString("NickName", "");
         welcomeText = findViewById(R.id.welcomeText);
@@ -62,10 +64,18 @@ public class MainActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent startForeground = new Intent(getApplicationContext(), NotiService.class);
-                startService(startForeground);
+                doStartService = true;
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(doStartService) {
+            Intent startForeground = new Intent(getApplicationContext(), NotiService.class);
+            startService(startForeground);
+        }
     }
 
     private void initializeButtons() {
