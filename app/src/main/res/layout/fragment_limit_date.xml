@@ -8,7 +8,8 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="18"
         android:fillViewport="true">
 
         <LinearLayout
@@ -53,20 +54,21 @@
                 android:textSize="30sp"/>
             <ListView
                 android:id="@+id/safeList"
-                android:layout_marginTop="470dp"
+                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-
-            <TextView
-                android:id="@+id/copywritingText"
-                android:layout_width="match_parent"
-                android:layout_height="33dp"
-                android:fontFamily="@font/nanumneoregular"
-                android:text="여러분들의 냉장고 지킴이 먹않상입니다"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="17sp" />
-
-            </LinearLayout>
+        </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/copywritingText"
+        android:layout_weight="1"
+        android:layout_marginTop="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fontFamily="@font/nanumneoregular"
+        android:text="여러분들의 냉장고 지킴이 먹않상입니다"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="17sp" />
 </LinearLayout>
