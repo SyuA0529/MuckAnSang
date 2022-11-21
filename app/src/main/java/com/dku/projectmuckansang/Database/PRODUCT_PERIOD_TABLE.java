@@ -8,7 +8,6 @@ public class PRODUCT_PERIOD_TABLE {
             "create table if not exists "+ TABLE_NAME +" ( " +
                 "productID          integer PRIMARY KEY, " +
                 "remainingPeriod    integer not null, " +
-                "doNotDecrease      integer not null," +
                 "FOREIGN KEY( productID ) REFERENCES PRODUCT( categoryID ) ON DELETE CASCADE " +
             ")";
 

@@ -106,7 +106,6 @@ public class AddActivity extends AppCompatActivity {
         if(periodVisible) {
             //calculate remaining period
             remainingPeriod = calculateRemainingPeriod(String.valueOf(editPeriod.getText()));
-            Log.d("AddActivity", String.valueOf(remainingPeriod));
         }
         else {
             //get default period

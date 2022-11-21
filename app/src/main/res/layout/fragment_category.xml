@@ -20,11 +20,13 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_launcher_foreground"
+                android:layout_height="96dp"
+                android:fontFamily="@font/pyeongchangregular"
                 android:gravity="center"
                 android:text="육류"
-                android:textSize="30sp" />
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                app:drawableLeftCompat="@drawable/meat_foreground" />
 
             <ListView
                 android:id="@+id/meetList"
@@ -33,11 +35,13 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_launcher_foreground"
+                android:layout_height="97dp"
+                android:fontFamily="@font/pyeongchangregular"
                 android:gravity="center"
                 android:text="채소류"
-                android:textSize="30sp" />
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                app:drawableLeftCompat="@drawable/veg_foreground" />
 
             <ListView
                 android:id="@+id/vegetableList"
@@ -46,11 +50,13 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_launcher_foreground"
+                android:layout_height="96dp"
+                android:fontFamily="@font/pyeongchangregular"
                 android:gravity="center"
                 android:text="유제품류"
-                android:textSize="30sp" />
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                app:drawableLeftCompat="@drawable/milk_foreground" />
 
             <ListView
                 android:id="@+id/dairyProductsList"
@@ -59,11 +65,13 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_launcher_foreground"
+                android:layout_height="96dp"
+                android:fontFamily="@font/pyeongchangregular"
                 android:gravity="center"
                 android:text="난류"
-                android:textSize="30sp" />
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                app:drawableLeftCompat="@drawable/egg_foreground" />
 
             <ListView
                 android:id="@+id/eggList"
@@ -72,11 +80,13 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_launcher_foreground"
+                android:layout_height="96dp"
+                android:fontFamily="@font/pyeongchangregular"
                 android:gravity="center"
                 android:text="콩류"
-                android:textSize="30sp" />
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                app:drawableLeftCompat="@drawable/bean_foreground" />
 
             <ListView
                 android:id="@+id/beanList"
@@ -85,24 +95,18 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_launcher_foreground"
+                android:layout_height="96dp"
+                android:fontFamily="@font/pyeongchangregular"
                 android:gravity="center"
                 android:text="소스류"
-                android:textSize="30sp" />
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                app:drawableLeftCompat="@drawable/sauce_foreground" />
 
             <ListView
                 android:id="@+id/sourceList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_launcher_foreground"
-                android:gravity="center"
-                android:text="음료류"
-                android:textSize="30sp" />
 
             <ListView
                 android:id="@+id/drinkList"

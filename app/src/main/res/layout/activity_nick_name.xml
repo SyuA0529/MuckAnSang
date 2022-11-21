@@ -10,45 +10,60 @@
     <TextView
         android:id="@+id/mainTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:textColor="@color/mainTitle"
-        android:textAlignment="center"
-        android:layout_marginTop="30dp"
-        android:text="먹않상"
-        />
+        android:layout_height="176dp"
+        android:drawableTop="@drawable/mukansang_foreground" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="닉네임 설정"
-            android:textSize="35sp"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="50dp"
+            android:fontFamily="@font/pyeongchangbold"
             android:gravity="center"
-            android:layout_marginTop="150dp"
-            android:layout_marginBottom="50dp"/>
+            android:text="당신의 이름은?"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
 
         <EditText
             android:id="@+id/nickNameEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:fontFamily="@font/pyeongchangregular"
             android:gravity="center"
             android:hint="닉네임을 입력해주세요"
-            android:textSize="35sp"
-            android:layout_marginBottom="50dp"/>
+            android:textSize="30sp"
+            android:layout_marginBottom="100dp"/>
 
         <Button
             android:id="@+id/nickNameButton"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/Orange"
+            android:fontFamily="@font/pyeongchangbold"
             android:text="완료"
-            android:textSize="25sp"/>
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:layout_marginBottom="60dp"/>
+
+        <TextView
+            android:id="@+id/copywritingText"
+            android:layout_width="match_parent"
+            android:layout_height="98dp"
+            android:layout_marginBottom="300dp"
+            android:fontFamily="@font/nanumneoregular"
+            android:text="여러분들의 냉장고 지킴이 먹않상입니다"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
+
     </LinearLayout>
 
 </LinearLayout>
