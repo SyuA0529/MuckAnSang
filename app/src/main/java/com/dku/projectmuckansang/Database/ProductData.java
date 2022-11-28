@@ -23,6 +23,14 @@ public class ProductData {
         return mRemainingPeriod;
     }
 
+    public String getProductName() {
+        return mProductName;
+    }
+
+    public int getProductCount() {
+        return mProductCount;
+    }
+
     @NonNull
     @Override
     public String toString() {

@@ -43,10 +43,14 @@ public class ListViewAdapter extends BaseAdapter {
         View view = layoutInflater.inflate(layoutID, viewGroup, false);
 
         //find item view
-        TextView textView = view.findViewById(R.id.listItem);
+        TextView itemName = view.findViewById(R.id.itemName);
+        TextView itemNum = view.findViewById(R.id.itemNum);
+        TextView itemPeriod = view.findViewById(R.id.itemPeriod);
 
         //set view
-        textView.setText(items.get(i).toString());
+        itemName.setText(items.get(i).getProductName());
+        itemNum.setText(String.valueOf(items.get(i).getProductCount()));
+        itemPeriod.setText(String.valueOf(items.get(i).getRemainingPeriod()));
         return view;
     }
 

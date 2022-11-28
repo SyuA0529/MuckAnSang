@@ -3,17 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/listItem"
-        android:layout_width="match_parent"
+        android:id="@+id/itemName"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:layout_weight="1"
         android:fontFamily="@font/pyeongchangregular"
         android:gravity="center"
-        android:text=""
+        android:text="TextView"
+        android:textColor="@color/black"
         android:textSize="25sp"/>
+
+    <TextView
+        android:id="@+id/itemNum"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/pyeongchangregular"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/itemPeriod"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/pyeongchangregular"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="25sp" />
 
 </LinearLayout>

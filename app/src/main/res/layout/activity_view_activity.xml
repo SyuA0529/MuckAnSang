@@ -24,6 +24,43 @@
         android:text="유통기한 임박순 정렬"
         android:background="@color/light_yellow" />
 
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/pyeongchangregular"
+            android:gravity="center"
+            android:text="제품 명" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/pyeongchangregular"
+            android:gravity="center"
+            android:text="수량" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/pyeongchangregular"
+            android:gravity="center"
+            android:text="남은 기간" />
+    </LinearLayout>
+
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
