@@ -27,4 +27,10 @@ public class PRODUCT_PERIOD_TABLE {
                 "update PRODUCT_PERIOD set remainingPeriod = remainingPeriod - 1 "
         );
     }
+
+    public static void deteleItem(SQLiteDatabase database, int productID) {
+        database.execSQL(
+                "delete from PRODUCT_PERIOD where productID = " + productID
+        );
+    }
 }

@@ -99,7 +99,7 @@ public class TrashActivity extends AppCompatActivity {
         ArrayList<ProductData> trashProductList = new ArrayList<>();
         for (int i = 0; i < bigCategoryList.length; i++) {
             //get specific ProductList of Category
-            ArrayList<ProductData> curCategoryProductList = helper.getTrashListNyCategory(bigCategoryList[i]);
+            ArrayList<ProductData> curCategoryProductList = helper.getTrashListByCategory(bigCategoryList[i]);
             //updateListView
             for (int j = 0; j < curCategoryProductList.size(); j++) {
                 trashProductList.add(curCategoryProductList.get(j));

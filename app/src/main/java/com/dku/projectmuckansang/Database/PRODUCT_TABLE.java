@@ -42,8 +42,9 @@ public class PRODUCT_TABLE {
         return cursor.getInt(0);
     }
 
-    //Checked
-    public static Cursor getAllProduct(SQLiteDatabase database) {
-        return database.rawQuery("select productID, categoryID, productCount, productName from " + TABLE_NAME, null);
+    public static void deleteItem(SQLiteDatabase database, int productID) {
+        database.execSQL(
+                "delete from PRODUCT where productID = " + productID
+        );
     }
 }

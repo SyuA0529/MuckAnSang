@@ -27,19 +27,19 @@ public class DEFAULT_PERIOD_TABLE {
             "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('유제품', '치즈', 70)",
             "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('유제품', '요거트', 30)",
             "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('유제품', '우유', 50)",
-            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('유제품', '버터', 30)",
+            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('유제품', '버터', 210)",
 
 
-            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('난류', '계란', 30)",
-            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('난류', '메추리알', 30)",
+            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('난류', '계란', 35)",
+            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('난류', '메추리알', 35)",
 
 
-            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('콩류', '두부', 30)",
-            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('콩류', '순두부', 30)",
-            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('콩류', '연두부', 30)",
+            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('콩류', '두부', 90)",
+            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('콩류', '순두부', 90)",
+            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('콩류', '연두부', 90)",
 
-            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('소스류', '', 30)",
-            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('음료류', '', 30)",
+            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('소스류', '', 180)",
+            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('음료류', '', 70)",
     };
 
     public static void createTable(SQLiteDatabase database) {

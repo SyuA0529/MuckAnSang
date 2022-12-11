@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -109,9 +108,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void deleteProductById(int productID) {
-        writableDatabase.execSQL(
-                "delete from PRODUCT where productID = " + productID
-        );
+        PRODUCT_TABLE.deleteItem(writableDatabase, productID);
+        PRODUCT_PERIOD_TABLE.deteleItem(writableDatabase, productID);
     }
 
     //Checked
@@ -121,7 +119,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         PRODUCT_PERIOD_TABLE.insertItem(writableDatabase, productID, remainingPeriod);
     }
 
-    //
+
     public int getCategoryID(String bigCategory, String detailCategory) {
         return DEFAULT_PERIOD_TABLE.getCategoryID(writableDatabase, bigCategory, detailCategory);
     }
@@ -130,8 +128,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return DEFAULT_PERIOD_TABLE.getDefaultPeriod(writableDatabase, categoryID);
     }
 
-    // ERROR
-    public ArrayList<ProductData> getTrashListNyCategory(String bigCategory) {
+
+    public ArrayList<ProductData> getTrashListByCategory(String bigCategory) {
         ArrayList<ProductData> productList = getSpecificCategoryProductList(bigCategory);
         ArrayList<ProductData> returnList = new ArrayList<>();
         for (int i = 0; i < productList.size(); i++) {
