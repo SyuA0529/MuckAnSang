@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -121,6 +122,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     public int getCategoryID(String bigCategory, String detailCategory) {
+        Log.d("DatabaseHelper", bigCategory + " " + detailCategory);
         return DEFAULT_PERIOD_TABLE.getCategoryID(writableDatabase, bigCategory, detailCategory);
     }
 

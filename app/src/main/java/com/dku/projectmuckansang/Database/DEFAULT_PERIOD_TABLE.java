@@ -24,10 +24,10 @@ public class DEFAULT_PERIOD_TABLE {
             "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('채소류', '쌈', 3)",
             "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('채소류', '샐러드', 3)",
 
-            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('유제품', '치즈', 70)",
-            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('유제품', '요거트', 30)",
-            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('유제품', '우유', 50)",
-            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('유제품', '버터', 210)",
+            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('유제품류', '우유', 50)",
+            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('유제품류', '치즈', 70)",
+            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('유제품류', '요거트', 30)",
+            "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('유제품류', '버터', 210)",
 
 
             "insert into DEFAULT_PERIOD (bigCategory, detailCategory, period) values ('난류', '계란', 35)",
