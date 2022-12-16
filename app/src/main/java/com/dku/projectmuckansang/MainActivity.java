@@ -26,10 +26,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         doStartService = false;
-        SharedPreferences preferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
-        nickName = preferences.getString("NickName", "");
-        welcomeText = findViewById(R.id.welcomeText);
-        welcomeText.setText("\"" + nickName + "님, 오늘도 건강한 하루 되세요!" + "\"");
     }
 
     @Override
@@ -41,15 +37,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), BootReceiver.class);
         sendBroadcast(intent);
 
-        Log.d("SyuA", "\n" +
-                " _____                 ___  \n" +
-                "/  ___|               / _ \\ \n" +
-                "\\ `--.  _   _  _   _ / /_\\ \\\n" +
-                " `--. \\| | | || | | ||  _  |\n" +
-                "/\\__/ /| |_| || |_| || | | |\n" +
-                "\\____/  \\__, | \\__,_|\\_| |_/\n" +
-                "         __/ |              \n" +
-                "        |___/               \n");
+        SharedPreferences preferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
+        nickName = preferences.getString("NickName", "");
+        welcomeText = findViewById(R.id.welcomeText);
+        welcomeText.setText("\"" + nickName + "님, 오늘도 건강한 하루 되세요!" + "\"");
 
         Button button = findViewById(R.id.testDecrease);
         button.setOnClickListener(new View.OnClickListener() {
