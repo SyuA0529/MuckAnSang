@@ -8,7 +8,7 @@ public class PRODUCT_PERIOD_TABLE {
             "create table if not exists "+ TABLE_NAME +" ( " +
                 "productID          integer PRIMARY KEY, " +
                 "remainingPeriod    integer not null, " +
-                "FOREIGN KEY( productID ) REFERENCES PRODUCT( categoryID ) ON DELETE CASCADE " +
+                "FOREIGN KEY( productID ) REFERENCES PRODUCT( productID ) ON DELETE CASCADE " +
             ")";
 
     public static void createTable(SQLiteDatabase database) {
@@ -25,12 +25,6 @@ public class PRODUCT_PERIOD_TABLE {
     public static void updateAllItemPeriod(SQLiteDatabase database) {
         database.execSQL(
                 "update PRODUCT_PERIOD set remainingPeriod = remainingPeriod - 1 "
-        );
-    }
-
-    public static void deteleItem(SQLiteDatabase database, int productID) {
-        database.execSQL(
-                "delete from PRODUCT_PERIOD where productID = " + productID
         );
     }
 }

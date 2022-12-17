@@ -110,7 +110,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void deleteProductById(int productID) {
         PRODUCT_TABLE.deleteItem(writableDatabase, productID);
-        PRODUCT_PERIOD_TABLE.deteleItem(writableDatabase, productID);
     }
 
     //Checked
