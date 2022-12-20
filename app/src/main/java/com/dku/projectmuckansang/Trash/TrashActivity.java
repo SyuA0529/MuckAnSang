@@ -31,7 +31,7 @@ public class TrashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_trash);
         listView = findViewById(R.id.trashListView);
 
-        alert = new AlertDialog.Builder(getApplicationContext());
+        alert = new AlertDialog.Builder(this);
         alert.setMessage("정말로 삭제하시겠습니까 ?").setCancelable(false)
                 .setPositiveButton("예", new DialogInterface.OnClickListener() {
                     @Override
